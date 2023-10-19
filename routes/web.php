@@ -32,3 +32,9 @@ Route::get('/user/profile', [UserController::class, 'profile'])->name('profile')
 
 Route::get('/user/applications', [UserController::class, 'applications'])->name('applications');
 Route::get('/user/saved-jobs', [UserController::class, 'saved_jobs'])->name('jobs.saved');
+
+Route::get('/user/edit-profile', [UserController::class, 'editProfile'])->name('editProfile');
+
+// Route::get('/user/edit-profile', function(){
+//     return view('user.edit-profile');
+// });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\User;
 use App\Models\Job\Job;
 use App\Models\Applications;
 use App\Models\Job\savedJob;
@@ -24,5 +25,29 @@ class UserController extends Controller
         $user = Auth::user();
         $jobs = savedJob::where('user_id', Auth::user()->id)->get();
         return view('user.saved_jobs', compact('user', 'jobs'));
+    }
+
+    public function editProfile(){
+        $user = Auth::user();
+        return view('user.edit-profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request){
+        $update = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'designation' => $request->designation,
+            'profile_image' => $request->profile_image,
+            'linkedin' => $request->linkedin,
+            'github' => $request->github,
+            'facebook' => $request->social_media,
+        ]);
+
+        if($update){
+            return redirect()->route('editProfile')->with('success','USer profile updated successfully !');
+        }
+        else{
+            return redirect()->route('editProfile')->with('error', 'Some error occured in updating profile !!');
+        }
     }
 }
