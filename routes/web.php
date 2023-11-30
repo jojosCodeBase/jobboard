@@ -1,19 +1,10 @@
 <?php
-
+// use AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Jobs\JobController;
 use App\Http\Controllers\Users\UserController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Admins\AdminController;
+use App\Models\Admin\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,7 +25,11 @@ Route::get('/user/applications', [UserController::class, 'applications'])->name(
 Route::get('/user/saved-jobs', [UserController::class, 'saved_jobs'])->name('jobs.saved');
 
 Route::get('/user/edit-profile', [UserController::class, 'editProfile'])->name('editProfile');
+Route::post('/user/update-profile', [UserController::class, 'updateProfile'])->name('updateProfile');
 
-// Route::get('/user/edit-profile', function(){
-//     return view('user.edit-profile');
-// });
+Route::post('/job/search', [JobController::class, 'searchJob'])->name('job.search');
+
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'checkLogin'])->name('admin.checkLogin');
+
+Route::get('admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');

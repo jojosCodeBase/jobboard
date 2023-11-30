@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-  </section>
+</section>
 
   <div class="container">
     @if (\Session::has('save'))

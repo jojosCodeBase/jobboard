@@ -28,26 +28,55 @@ class UserController extends Controller
     }
 
     public function editProfile(){
-        $user = Auth::user();
+        $user = User::find(Auth::user()->id);
         return view('user.edit-profile', compact('user'));
     }
 
     public function updateProfile(Request $request){
-        $update = User::create([
+        $userDetailsUpdate = User::find(Auth::user()->id);
+        $profileImage = $userDetailsUpdate->profile_image;
+        $cv = $userDetailsUpdate->cv;
+
+       if($userDetailsUpdate->profile_image == NULL)
+        {
+            $destinationPath = 'assets/profile-images/';
+            $profileImage = $request->profile_image->getClientOriginalName();
+            $request->profile_image->move(public_path($destinationPath), $profileImage);
+        }
+        else if($request->hasFile('profile_image')){
+            $destinationPath = 'assets/profile-images/';
+            $profileImage = $request->profile_image->getClientOriginalName();
+            $request->profile_image->move(public_path($destinationPath), $profileImage);
+        }
+
+        if($userDetailsUpdate->cv == NULL){
+            $cvPath = 'assets/resume/';
+            $cv = $request->cv->getClientOriginalName();
+            $request->cv->move(public_path($cvPath), $cv);
+        }
+        else if($request->hasFile('cv')){
+            $cvPath = 'assets/resume/';
+            $cv = $request->cv->getClientOriginalName();
+            $request->cv->move(public_path($cvPath), $cv);
+        }
+
+        $userDetailsUpdate->update([
             'name' => $request->name,
             'email' => $request->email,
             'designation' => $request->designation,
-            'profile_image' => $request->profile_image,
+            'description' => $request->description,
+            'profile_image' => $profileImage,
             'linkedin' => $request->linkedin,
             'github' => $request->github,
             'facebook' => $request->social_media,
+            'cv' => $cv,
         ]);
 
-        if($update){
-            return redirect()->route('editProfile')->with('success','USer profile updated successfully !');
+        if($userDetailsUpdate){
+            return redirect()->route('profile')->with('success','User profile updated successfully !');
         }
         else{
-            return redirect()->route('editProfile')->with('error', 'Some error occured in updating profile !!');
+            return redirect()->route('profile')->with('error', 'Some error occured in updating profile !!');
         }
     }
 }

@@ -9,17 +9,19 @@
             <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate est, consequuntur perferendis.</p>
           </div>
-          <form method="post" class="search-jobs-form">
+          <form method="post" action="{{ route('job.search')}}" class="search-jobs-form">
+            @csrf
             <div class="row mb-5">
               <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                <input type="text" class="form-control form-control-lg" placeholder="Job title, Company...">
+                <input type="text" name="job_title" class="form-control form-control-lg" placeholder="Job title, Company..." required>
               </div>
               <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%" data-live-search="true" title="Select Region">
+                <select class="selectpicker" data-style="btn-white btn-lg" name="job_region" data-width="100%" data-live-search="true" title="Select Region" required>
                   <option>Anywhere</option>
                   <option>San Francisco</option>
                   <option>Palo Alto</option>
                   <option>New York</option>
+                  <option>Kolkata, West Bengal</option>
                   <option>Manhattan</option>
                   <option>Ontario</option>
                   <option>Toronto</option>
@@ -28,7 +30,7 @@
                 </select>
               </div>
               <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%" data-live-search="true" title="Select Job Type">
+                <select class="selectpicker" name="job_type" data-style="btn-white btn-lg" data-width="100%" data-live-search="true" title="Select Job Type" required>
                   <option>Part Time</option>
                   <option>Full Time</option>
                 </select>

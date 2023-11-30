@@ -50,7 +50,6 @@ class JobController extends Controller
     }
 
     public function applyJob(Request $request){
-
         if($request->cv == 'NULL'){
             return redirect('/jobs/single/'.$request->job_id)->with('error', 'Upload your CV from the profile page');
         }
@@ -71,5 +70,32 @@ class JobController extends Controller
             else
                 echo "Some error occured";
         }
+    }
+
+    public function searchJob(Request $request){
+        $title = $request->job_title;
+        $region = $request->job_region;
+        $type = $request->job_type;
+
+        $jobs = Job::select()->where('job_title', 'like', "%$title%")
+        ->where('job_region', 'like', "%$region%")
+        ->where('job_type', 'like', "%$type%")
+        ->get();
+
+        $totalJobs = Job::select()->where('job_title', 'like', "%$title%")
+        ->where('job_region', 'like', "%$region%")
+        ->where('job_type', 'like', "%$type%")
+        ->count();
+
+        if($totalJobs == 0){
+            $jobs = Job::select()->where('job_region', 'like', "%$region%")
+            ->get();
+
+            $totalJobs = Job::select()->where('job_region', 'like', "%$region%")
+            ->count();
+        }
+
+        return view('jobs.search', compact('jobs', 'totalJobs'));
+
     }
 }
