@@ -32,4 +32,10 @@ Route::post('/job/search', [JobController::class, 'searchJob'])->name('job.searc
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'checkLogin'])->name('admin.checkLogin');
 
-Route::get('admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('admin/admins', [AdminController::class, 'listAdmins'])->name('admin.listAdmins');
+Route::get('admin/categories', [AdminController::class, 'categories'])->name('admin.categories');
+Route::get('admin/jobs', [AdminController::class, 'jobs'])->name('admin.jobs');
+Route::get('admin/applications', [AdminController::class, 'applications'])->name('admin.applications');
+Route::get('admin/create-admin', [AdminController::class, 'createAdmin'])->name('admin.createAdmin');
+// Route::post('admin/logout', [AdminController::class, 'logout'])->name('logout');

@@ -24,39 +24,42 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav side-nav">
                         <li class="nav-item">
-                            <a class="nav-link" style="margin-left: 20px;" href="../index.html">Home
+                            <a class="nav-link" style="margin-left: 20px;" href="{{ route('admin.dashboard') }}">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admins.html" style="margin-left: 20px;">Admins</a>
+                            <a class="nav-link" href="{{ route('admin.listAdmins') }}" style="margin-left: 20px;">Admins</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../categories-admins/show-categories.html"
+                            <a class="nav-link" href="{{ route('admin.categories') }}"
                                 style="margin-left: 20px;">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../jobs-admins/show-jobs.html" style="margin-left: 20px;">Jobs</a>
+                            <a class="nav-link" href="{{ route('admin.jobs') }}" style="margin-left: 20px;">Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../applications-admins/show-apps.html"
+                            <a class="nav-link" href="{{ route('admin.applications') }}"
                                 style="margin-left: 20px;">Applications</a>
                         </li>
 
                     </ul>
                     <ul class="navbar-nav ml-md-auto d-md-flex">
                         <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home
-                                <span class="sr-only">(current)</span>
-                            </a>
+                            <span class="nav-link text-light">Welcome</span>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ $user->name }}
+                                {{ Auth::guard('admin')->user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
                     </ul>

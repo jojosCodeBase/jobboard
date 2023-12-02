@@ -11,9 +11,13 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
+    // public function logout(){
+    //     dd("logged out");
+    // }
+
     public function dashboard(){
-        $user = Auth::guard('admin')->user();
-        return view('admin.dashboard', compact('user'));
+        //$user = Auth::guard('admin')->user();
+        return view('admin.dashboard');
     }
 
     public function checkLogin(Request $request){
@@ -21,5 +25,21 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard');
         }
         return redirect()->back()->with(['error' => 'Invalid login credentials !']);
+    }
+
+    public function jobs(){
+        return view('admin.jobs');
+    }
+    public function categories(){
+        return view('admin.categories');
+    }
+    public function applications(){
+        return view('admin.applications');
+    }
+    public function listAdmins(){
+        return view('admin.admins');
+    }
+    public function createAdmin(){
+        return view('admin.createAdmin');
     }
 }
